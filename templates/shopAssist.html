@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ShopAssist Chat</title>
+        <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            }
+
+            .chat-container {
+            display: flex;
+            flex-direction: column;
+            background-color: #e5e5ee;
+            border-radius: 12px;
+            width: 600px;
+            height: 600px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .chat-header {
+            text-align: center;
+            padding: 16px;
+            font-size: 1.2em;
+            font-weight: 600;
+            background-color: #9186f5;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            }
+
+            .chat-box {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            }
+
+            .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.95em;
+            line-height: 1.4;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .message.you {
+            align-self: flex-end;
+            background-color: #0f72be;
+            color: white;
+            }
+
+            .message.assistant {
+            align-self: flex-start;
+            background-color: #3a3d41;
+            color: #f3f3f3;
+            }
+
+            .chat-input {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid #444;
+            background-color: #2d2d2d;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            }
+
+            .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #1e1e1e;
+            color: #fff;
+            font-size: 0.95em;
+            }
+
+            .chat-input button {
+            margin-left: 8px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #0078d4;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            }
+
+            .chat-input button:hover {
+            background-color: #005ea2;
+            }
+
+            .end-chat {
+            margin: 10px 16px;
+            background-color: #005ea2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: background 0.2s;
+            }
+
+            .end-chat:hover {
+            background-color: #c50f1f;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">ShopAssist</div>
+            <div id="chatBox" class="chat-box">
+                <div class="message you">Hi, I need help with placing an order.</div>
+                <div class="message assistant">Sure! I can assist you with that. What would you like to order?</div>
+                <div class="message you">I’m looking for wireless headphones under $100.</div>
+                <div class="message assistant">Here are a few top-rated wireless headphones in that price range. Would you like me to add one to your cart?</div>
+                <div class="message you">Yes, please add the second one to my cart.</div>
+                <div class="message assistant">Done! The second headphone is now in your cart. Would you like to proceed to checkout?</div>
+                <div class="message you">Not yet. Can you tell me if it has noise cancellation?</div>
+                <div class="message assistant">Yes, it features active noise cancellation and a battery life of up to 20 hours.</div>
+                <div class="message you">Perfect. Also, I need it delivered by this Friday.</div>
+                <div class="message assistant">No problem! I’ve set the delivery preference to Friday. Is there anything else I can help you with?</div>
+                <div class="message assistant">
+                    <span class="chatbot-emoji">🤖</span>
+                    <span class="message-text">Sure! I can assist you with that. What would you like to order?</span>
+                </div>
+            </div>
+            <form class="chat-input" action="/chat" method="POST"">
+                <input id="chatInput" name="message" type="text" placeholder="Type your message..." required />
+                <button type="submit">Send</button>
+            </form>
+            <form action="/end" method="POST">
+                <button class="end-chat" type="submit">End Conversation</button>
+            </form>
+        </div>
+        <script>
+            function scrollToBottom() {
+                const chatBox = document.getElementById("chatBox");
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+            // Scroll on page load
+            window.addEventListener("load", scrollToBottom);
+        </script>
+        </body>
+</html>

@@ -7,23 +7,23 @@ from IPython.display import display, HTML
 from flask import Flask, redirect, url_for, render_template, request
 from functions import *
 
-openai.api_key = open('OPENAI_API_Key.txt', 'r').read().strip()
+#openai.api_key = open('OPENAI_API_Key.txt', 'r').read().strip()
 
 app = Flask(__name__)
 
 conversation_bot = []
 
 conversation = initialize_conversation()
-introduction = get_chat_completions(conversation)
-conversation_bot.append({'bot': introduction})
+#introduction = get_chat_completions(conversation)
+#conversation_bot.append({'bot': introduction})
 top_3_laptops = None
 
 
 @app.route("/")
 def default_func():
     global conversation_bot, conversation, top_3_laptops
-    return render_template("index.html", name_xyz = conversation_bot)
-
+    return render_template("shopAssist.html", name_xyz = conversation_bot)
+'''
 @app.route("/end_conv", methods = ['POST', 'GET'])
 def end_conv():
     global conversation_bot, conversation, top_3_laptops
@@ -104,6 +104,7 @@ def invite():
         conversation_bot.append({'bot': response_asst_reco})
 
     return redirect(url_for('default_func'))
+'''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
