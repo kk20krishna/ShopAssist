@@ -14,9 +14,11 @@ app = Flask(__name__)
 conversation = []
 conversation_bot = []
 
-conversation_bot.append(get_configs('conversation', 'system_prompt'))
-conversation_bot.append(get_configs('conversation', 'assistant_greeting'))
-conversation.append(get_configs('conversation', 'assistant_greeting'))
+conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
+
+assistant_greeting = get_configs('conversation', 'assistant_greeting')
+conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
+conversation.append({'role': 'assistant', 'content': assistant_greeting})
 
 top_3_laptops = None
 

@@ -55,7 +55,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             }
 
-            .message.you {
+            .message.user {
             align-self: flex-end;
             background-color: #0f72be;
             color: white;
@@ -124,20 +124,19 @@
         <div class="chat-container">
             <div class="chat-header">ShopAssist</div>
             <div id="chatBox" class="chat-box">
-                <div class="message you">Hi, I need help with placing an order.</div>
+                <div class="message user">Hi, I need help with placing an order.</div>
                 <div class="message assistant">Sure! I can assist you with that. What would you like to order?</div>
-                <div class="message you">I’m looking for wireless headphones under $100.</div>
+                <div class="message user">I’m looking for wireless headphones under $100.</div>
                 <div class="message assistant">Here are a few top-rated wireless headphones in that price range. Would you like me to add one to your cart?</div>
-                <div class="message you">Yes, please add the second one to my cart.</div>
+                <div class="message user">Yes, please add the second one to my cart.</div>
                 <div class="message assistant">Done! The second headphone is now in your cart. Would you like to proceed to checkout?</div>
-                <div class="message you">Not yet. Can you tell me if it has noise cancellation?</div>
+                <div class="message user">Not yet. Can you tell me if it has noise cancellation?</div>
                 <div class="message assistant">Yes, it features active noise cancellation and a battery life of up to 20 hours.</div>
-                <div class="message you">Perfect. Also, I need it delivered by this Friday.</div>
+                <div class="message user">Perfect. Also, I need it delivered by this Friday.</div>
                 <div class="message assistant">No problem! I’ve set the delivery preference to Friday. Is there anything else I can help you with?</div>
-                <div class="message assistant">
-                    <span class="chatbot-emoji">🤖</span>
-                    <span class="message-text">Sure! I can assist you with that. What would you like to order?</span>
-                </div>
+                {% for msg in conversation %}
+                    <div class="message {{ msg.role }}">{{ msg.content }}</div>
+                {% endfor %}
             </div>
             <form class="chat-input" action="/chat" method="POST"">
                 <input id="chatInput" name="message" type="text" placeholder="Type your message..." required />

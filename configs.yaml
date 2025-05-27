@@ -33,7 +33,7 @@ conversation:
     Provide a clear and organized recommendation paragraph detailing the suggested laptops along with the reasons for those suggestions. Use Markdown format.
     {delimiter}
   assistant_greeting: |
-    Hello! I'm here to help you find the perfect laptop. Please share your requirements, and I'll do my best to assist you.
+    GREETINGS!! Hello! I'm here to help you find the perfect laptop. Please share your requirements, and I'll do my best to assist you.
   tools:
     - type: function
       name: recommend_laptops
