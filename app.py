@@ -15,10 +15,20 @@ app = Flask(__name__)
 
 conversation = []
 conversation_bot = []
+
+# Append system prompt to the conversation
 conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
+
+# Append assistant greeting to the conversation
 assistant_greeting = get_configs('conversation', 'assistant_greeting')
 conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
 conversation.append({'role': 'assistant', 'content': assistant_greeting})
+
+# Append TEST_INT_CONVERSATION to the conversation ####
+for item in test_int_conversaion():
+    conversation_bot.append(item)
+    conversation.append(item)
+#######################################################
 
 top_3_laptops = None
 
@@ -31,16 +41,16 @@ def default_func():
 def chat():
     global conversation, conversation_bot
     user_input = request.form["user_input"]
-
-    conversation_bot.append({'role': 'user', 'content': user_input})
-    conversation.append({'role': 'user', 'content': user_input})
     
     # Perform moderation check on user input
     moderation = moderation_check(user_input)
     if moderation == 'Flagged':
         conversation.append({'role': 'moderation', 'content': get_configs('conversation', 'moderation_message_user')})
         return redirect(url_for('default_func'))
-    
+
+    conversation_bot.append({'role': 'user', 'content': user_input})
+    conversation.append({'role': 'user', 'content': user_input})
+
     # Get chat completions from the model
     assistant_output = get_chat_completions(conversation_bot)
 

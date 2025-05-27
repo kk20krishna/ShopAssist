@@ -24,7 +24,15 @@ def get_configs(name, type):
     except KeyError:
         raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
+def test_int_conversaion():
+    print("Loading init_conversation.yaml file...")
+    with open("init_conversation.yaml", "r") as file:
+        YAML_DICT = yaml.safe_load(file)
+        print("init_conversation.yaml file loaded successfully.")
+        return YAML_DICT['messages']
+
 def get_chat_completions(conversation_bot):
+    print("conversation_bot:", conversation_bot)
     # Call the OpenAI API to get chat completions based on the input.
     client = OpenAI()
     response = client.responses.create(
@@ -32,8 +40,35 @@ def get_chat_completions(conversation_bot):
         input=conversation_bot,
         tools=get_configs('conversation', 'tools')
     )
+
+    while response.output[0].type == "function_call":
+        name = response.output[0].name
+        args = json.loads(response.output[0].arguments)
+        call_id = response.output[0].call_id
+        print("Function call detected, executing function...")
+        if name == 'recommend_laptops':
+            print("before function call 1")
+            conversation_bot.append({'type': 'function_call',
+                                     'call_id': call_id,
+                                     'name': name,
+                                     'arguments': str(args)
+            })
+            conversation_bot.append({'type': 'function_call_output',
+                                     'call_id': call_id,
+                                     'output': str(recommend_laptops(**args))
+            })
+            print("conversation_bot:", conversation_bot)
+            response = client.responses.create(
+                model=get_configs('conversation', 'model'),
+                input=conversation_bot,
+                tools=get_configs('conversation', 'tools')
+            )
+            print("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:", response)
+
     return response.output_text
 
+def recommend_laptops(**kwargs):
+    return "I recomend a Lenovo ThinkPad X1 Carbon for your needs."
 
 def moderation_check(user_input):
     # Call the OpenAI API to perform moderation on the user's input.

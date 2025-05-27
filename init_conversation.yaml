@@ -1,0 +1,6 @@
+messages:
+  -  role: user
+     content: |
+       I am looking for a laptop that can handle high GPU intensity tasks, 
+       has high display quality, is portable, supports multitasking, 
+       and has high processing speed. My budget is $1500.
