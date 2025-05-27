@@ -67,6 +67,12 @@
             color: #f3f3f3;
             }
 
+            .message.moderation {
+            align-self: flex-start;
+            background-color: #f80404;
+            color: #f3f3f3;
+            }
+
             .chat-input {
             display: flex;
             padding: 12px;
@@ -124,25 +130,15 @@
         <div class="chat-container">
             <div class="chat-header">ShopAssist</div>
             <div id="chatBox" class="chat-box">
-                <div class="message user">Hi, I need help with placing an order.</div>
-                <div class="message assistant">Sure! I can assist you with that. What would you like to order?</div>
-                <div class="message user">I’m looking for wireless headphones under $100.</div>
-                <div class="message assistant">Here are a few top-rated wireless headphones in that price range. Would you like me to add one to your cart?</div>
-                <div class="message user">Yes, please add the second one to my cart.</div>
-                <div class="message assistant">Done! The second headphone is now in your cart. Would you like to proceed to checkout?</div>
-                <div class="message user">Not yet. Can you tell me if it has noise cancellation?</div>
-                <div class="message assistant">Yes, it features active noise cancellation and a battery life of up to 20 hours.</div>
-                <div class="message user">Perfect. Also, I need it delivered by this Friday.</div>
-                <div class="message assistant">No problem! I’ve set the delivery preference to Friday. Is there anything else I can help you with?</div>
                 {% for msg in conversation %}
                     <div class="message {{ msg.role }}">{{ msg.content }}</div>
                 {% endfor %}
             </div>
             <form class="chat-input" action="/chat" method="POST"">
-                <input id="chatInput" name="message" type="text" placeholder="Type your message..." required />
+                <input id="chatInput" name="user_input" type="text" placeholder="Type your message..." required />
                 <button type="submit">Send</button>
             </form>
-            <form action="/end" method="POST">
+            <form action="/end_chat" method="POST">
                 <button class="end-chat" type="submit">End Conversation</button>
             </form>
         </div>

@@ -6,16 +6,16 @@ import json
 from IPython.display import display, HTML
 from flask import Flask, redirect, url_for, render_template, request
 from functions import *
+from dotenv import load_dotenv
+import os
 
-#openai.api_key = open('OPENAI_API_Key.txt', 'r').read().strip()
+load_dotenv()
 
 app = Flask(__name__)
 
 conversation = []
 conversation_bot = []
-
 conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
-
 assistant_greeting = get_configs('conversation', 'assistant_greeting')
 conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
 conversation.append({'role': 'assistant', 'content': assistant_greeting})
@@ -26,17 +26,47 @@ top_3_laptops = None
 def default_func():
     global conversation, conversation_bot, top_3_laptops
     return render_template("shopAssist.html", conversation = conversation)
-'''
-@app.route("/end_conv", methods = ['POST', 'GET'])
-def end_conv():
-    global conversation_bot, conversation, top_3_laptops
-    conversation_bot = []
-    conversation = initialize_conversation()
-    introduction = get_chat_completions(conversation)
-    conversation_bot.append({'bot': introduction})
-    top_3_laptops = None
+
+@app.route("/chat", methods = ['POST'])
+def chat():
+    global conversation, conversation_bot
+    user_input = request.form["user_input"]
+
+    conversation_bot.append({'role': 'user', 'content': user_input})
+    conversation.append({'role': 'user', 'content': user_input})
+    
+    # Perform moderation check on user input
+    moderation = moderation_check(user_input)
+    if moderation == 'Flagged':
+        conversation.append({'role': 'moderation', 'content': get_configs('conversation', 'moderation_message_user')})
+        return redirect(url_for('default_func'))
+    
+    # Get chat completions from the model
+    assistant_output = get_chat_completions(conversation_bot)
+
+    # Perform moderation check on assistant output
+    moderation = moderation_check(assistant_output)
+    if moderation == 'Flagged':
+        conversation.append({'role': 'moderation', 'content': get_configs('conversation', 'moderation_message_assistant')})
+        return redirect(url_for('default_func'))
+
+    conversation_bot.append({'role': 'assistant', 'content': assistant_output})
+    conversation.append({'role': 'assistant', 'content': assistant_output}) 
     return redirect(url_for('default_func'))
 
+
+@app.route("/end_chat", methods = ['POST'])
+def end_conv():
+    global conversation_bot, conversation
+    conversation = []
+    conversation_bot = []
+    conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
+    assistant_greeting = get_configs('conversation', 'assistant_greeting')
+    conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
+    conversation.append({'role': 'assistant', 'content': assistant_greeting})
+    return redirect(url_for('default_func'))
+
+'''
 @app.route("/invite", methods = ['POST'])
 def invite():
     global conversation_bot, conversation, top_3_laptops, conversation_reco

@@ -6,6 +6,7 @@ import json
 from IPython.display import display, HTML
 import yaml
 from functools import lru_cache
+from openai import OpenAI
 
 @lru_cache(maxsize=1)
 def load_configs():
@@ -23,35 +24,15 @@ def get_configs(name, type):
     except KeyError:
         raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
-def get_chat_completions(input, json_format = False):
-    MODEL = 'gpt-3.5-turbo'
-
-    system_message_json_output = """<<. Return output in JSON format to the key output.>>"""
-
-    # If the output is required to be in JSON format
-    if json_format == True:
-        # Append the input prompt to include JSON response as specified by OpenAI
-        input[0]['content'] += system_message_json_output
-
-        # JSON return type specified
-        chat_completion_json = openai.chat.completions.create(
-            model = MODEL,
-            messages = input,
-            response_format = { "type": "json_object"},
-            seed = 1234)
-
-        output = json.loads(chat_completion_json.choices[0].message.content)
-
-    # No JSON return type specified
-    else:
-        chat_completion = openai.chat.completions.create(
-            model = MODEL,
-            messages = input,
-            seed = 2345)
-
-        output = chat_completion.choices[0].message.content
-
-    return output
+def get_chat_completions(conversation_bot):
+    # Call the OpenAI API to get chat completions based on the input.
+    client = OpenAI()
+    response = client.responses.create(
+        model=get_configs('conversation', 'model'),
+        input=conversation_bot,
+        tools=get_configs('conversation', 'tools')
+    )
+    return response.output_text
 
 
 def moderation_check(user_input):
@@ -59,7 +40,7 @@ def moderation_check(user_input):
     response = openai.moderations.create(input=user_input)
 
     # Extract the moderation result from the API response.
-    moderation_output = response.results[0].flagged
+    #moderation_output = response.results[0].flagged
     # Check if the input was flagged by the moderation system.
     if response.results[0].flagged == True:
         # If flagged, return "Flagged"
@@ -67,6 +48,8 @@ def moderation_check(user_input):
     else:
         # If not flagged, return "Not Flagged"
         return "Not Flagged"
+
+'''
 
 def product_map_layer(laptop_description):
     delimiter = "#####"
@@ -219,3 +202,4 @@ def initialize_conv_reco(products):
     # conversation_final = conversation[0]['content']
     return conversation
 
+'''
