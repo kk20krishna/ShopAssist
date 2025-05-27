@@ -11,18 +11,19 @@ from functions import *
 
 app = Flask(__name__)
 
+conversation = []
 conversation_bot = []
 
-conversation = initialize_conversation()
-#introduction = get_chat_completions(conversation)
-#conversation_bot.append({'bot': introduction})
-top_3_laptops = None
+conversation_bot.append(get_configs('conversation', 'system_prompt'))
+conversation_bot.append(get_configs('conversation', 'assistant_greeting'))
+conversation.append(get_configs('conversation', 'assistant_greeting'))
 
+top_3_laptops = None
 
 @app.route("/")
 def default_func():
-    global conversation_bot, conversation, top_3_laptops
-    return render_template("shopAssist.html", name_xyz = conversation_bot)
+    global conversation, conversation_bot, top_3_laptops
+    return render_template("shopAssist.html", conversation = conversation)
 '''
 @app.route("/end_conv", methods = ['POST', 'GET'])
 def end_conv():

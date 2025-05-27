@@ -1,3 +1,0 @@
-from ShopAssist_functions import *
-
-print(get_sys_prompt('initialize_conversation'))

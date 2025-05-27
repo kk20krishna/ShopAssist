@@ -4,11 +4,26 @@ import re
 import pandas as pd
 import json
 from IPython.display import display, HTML
+import yaml
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def load_configs():
+    global YAML_DICT
+    print("Loading configs.yaml file...")
+    with open("configs.yaml", "r") as file:
+        YAML_DICT = yaml.safe_load(file)
+
+def get_configs(name, type):
+    global YAML_DICT
+    load_configs()
+
+    try:
+        return YAML_DICT[name][type]
+    except KeyError:
+        raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
 def initialize_conversation():
-    '''
-    Returns a list [{"role": "system", "content": system_message}]
-    '''
 
     delimiter = "####"
 
