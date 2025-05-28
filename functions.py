@@ -69,7 +69,8 @@ def get_chat_completions(conversation_bot):
 
     return response.output_text
 
-def recommend_laptops(**kwargs):
+def recommend_laptops(**args):
+    print('recommend_laptops:', args)
     return "I recomend a Lenovo ThinkPad X1 Carbon for your needs."
 
 def moderation_check(user_input):
