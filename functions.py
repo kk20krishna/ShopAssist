@@ -32,7 +32,8 @@ def test_int_conversaion():
         return YAML_DICT['messages']
 
 def get_chat_completions(conversation_bot):
-    print("conversation_bot:", conversation_bot)
+    print("OpenAI API call: ", conversation_bot[-1])
+
     # Call the OpenAI API to get chat completions based on the input.
     client = OpenAI()
     response = client.responses.create(
@@ -45,9 +46,8 @@ def get_chat_completions(conversation_bot):
         name = response.output[0].name
         args = json.loads(response.output[0].arguments)
         call_id = response.output[0].call_id
-        print("Function call detected, executing function...")
+        print('Function_call: ', name, 'arguments:', args)
         if name == 'recommend_laptops':
-            print("before function call 1")
             conversation_bot.append({'type': 'function_call',
                                      'call_id': call_id,
                                      'name': name,
@@ -57,13 +57,15 @@ def get_chat_completions(conversation_bot):
                                      'call_id': call_id,
                                      'output': str(recommend_laptops(**args))
             })
-            print("conversation_bot:", conversation_bot)
+
             response = client.responses.create(
                 model=get_configs('conversation', 'model'),
                 input=conversation_bot,
                 tools=get_configs('conversation', 'tools')
             )
-            print("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:", response)
+            print('function_call_output: ', response.output_text)
+    
+    print("OpenAI API output_text: ", response.output_text)
 
     return response.output_text
 
@@ -79,9 +81,11 @@ def moderation_check(user_input):
     # Check if the input was flagged by the moderation system.
     if response.results[0].flagged == True:
         # If flagged, return "Flagged"
+        print('Moderation check: Flagged')
         return "Flagged"
     else:
         # If not flagged, return "Not Flagged"
+        print('Moderation check: Not Flagged')
         return "Not Flagged"
 
 '''
