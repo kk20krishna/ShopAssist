@@ -34,6 +34,7 @@ def recommend_laptops(**args):
     for index, row in filtered_laptops.iterrows():
         print('Outer for:', index, row['laptop_feature'])
         user_product_match_str = row['laptop_feature']
+        user_product_match_str = user_product_match_str.replace("'", '"')  # Replacing single quotes with double quotes for valid JSON
         laptop_values = json.loads(user_product_match_str)
         score = 0
 
@@ -42,10 +43,12 @@ def recommend_laptops(**args):
             print('Inner for:', key, user_value)
             if key == 'budget':
                 continue  # Skipping budget comparison
+            
+            print(user_value)
+            print (type(user_value))
+            print(mappings.get(laptop_values.get(key, None), -1), mappings.get(user_value, -1))
 
-            print(mappings.get(laptop_values.get(key, None), -1), mappings.get(user_value.get(key, None), -1))
-
-            if mappings.get(laptop_values.get(key, None), -1) >= mappings.get(user_value.get(key, None), -1):
+            if mappings.get(laptop_values.get(key, None), -1) >= mappings.get(user_value.get, -1):
                 score += 1  # Incrementing score if laptop value meets or exceeds user value
                 print('score:', score)
 
