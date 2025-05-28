@@ -1,6 +1,6 @@
 conversation:
   model: gpt-3.5-turbo
-  delimiter: '####'
+  delimiter: '###'
   system_prompt: |
     Your task is to assist in selecting the best laptop for a user. Do not assist with anything else.
     Respectfully decline if you are asked to assist with anything else.
