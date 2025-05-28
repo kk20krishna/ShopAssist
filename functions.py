@@ -24,14 +24,6 @@ def get_configs(name, type):
         raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
 
-def test_int_conversaion():
-    print("Loading init_conversation.yaml file...")
-    with open("init_conversation.yaml", "r") as file:
-        YAML_DICT = yaml.safe_load(file)
-        print("init_conversation.yaml file loaded successfully.")
-        return YAML_DICT['messages']
-
-
 def get_chat_completions(conversation_bot):
     print("OpenAI API call: ", conversation_bot[-1])
 

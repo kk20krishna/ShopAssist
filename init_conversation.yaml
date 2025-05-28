@@ -1,8 +1,0 @@
-messages:
-  -  role: user
-     content: |
-       I am looking for a laptop that can handle medium GPU intensity tasks, 
-       has high display quality, supports multitasking, 
-       and has high average speed.
-       I do not are about portability.
-       My budget is $15000000.

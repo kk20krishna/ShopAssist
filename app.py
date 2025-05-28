@@ -19,7 +19,7 @@ conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
 conversation.append({'role': 'assistant', 'content': assistant_greeting})
 
 # Append TEST_INT_CONVERSATION to the conversation ####
-for item in test_int_conversaion():
+for item in get_configs('conversation', 'Initial_conversation'):
     conversation_bot.append(item)
     conversation.append(item)
 #######################################################

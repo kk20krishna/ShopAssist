@@ -108,7 +108,7 @@ conversation:
     user: Yes, looks good.
     function_call: call function recommend_laptops with {"gpuIntensity": "high", "displayQuality": "high", "portability": "medium", "multitasking": "high", "processingSpeed": "high", "budget": 150000}
     function_call_output: 
-    
+  
   assistant_greeting: |
     GREETINGS!! Hello! I'm here to help you find the perfect laptop. Please share your requirements, and I'll do my best to assist you.
   moderation_message_user: |
@@ -118,6 +118,14 @@ conversation:
     Sorry, the message from the assistant has been flagged for moderation. 
     This message will not be shown to you.
     Please end this chat and start a new one.
+  Initial_conversation:
+    -  role: user
+       content: |
+         I am looking for a laptop that can handle medium GPU intensity tasks, 
+         has high display quality, supports multitasking, 
+         and has high average speed.
+         I do not are about portability.
+         My budget is $15000000.
   tools:
     - type: function
       name: recommend_laptops
