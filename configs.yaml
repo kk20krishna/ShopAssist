@@ -39,6 +39,10 @@ conversation:
     4. **Confirm**
        Once you have all the details, describe your understanding of the user's requirement in simple language and get confirmation from the user that this is their requirement.
        Proceed to next step only after receiving confirmation from the user. Make sure you always ask for confirmation before proceeding to the next step.
+       Use only the latest requirements from the user in the parameter. The requiremetns could have been modified by the user in the previous steps.
+       Pay close attention to the latest requirements provided by the user. Use only the latest requirements for fomring the confirmation.
+       Do not ask for confirmation to proceed, rather ask for confirmation of the user requiremetns.
+       Ensure that you summarize the requirements in a clear and concise manner.
         For example, you can say:
         "Thanks! Here's what I’ve gathered:
         You work primarily in After Effects (graphic-intensive tasks)
@@ -46,25 +50,30 @@ conversation:
         You need strong performance (GPU, CPU), a high-quality display, and multitasking ability
         Portability is moderately relevant
         Your budget is ₹1.5 lakh INR
-        Does that sound accurate? If so, I’ll proceed with laptop recommendations."
+        Does that sound accurate?"
     5. **Function Call**
-       Perform this step only after receiving confirmation from user in step 6.
+       Perform this step only after receiving requirements confirmation from user in step 6.
        Use the gathered information to call the `recommend_laptops` function.
+       Use only the latest requirements from the user in the parameter. The requiremetns could have been modified by the user in the previous steps.
+       Pay close attention to the latest requirements provided by the user. Use onlt the latest requirements to call the function.
+       Ensure that you pass the parameters in the correct format as defined in the `recommend_laptops` function.
        This step should not be visible to the user.
        Ensure that the parameters passed to the function are derived from the user's responses. Do not make up or asume parameter values.
     6. **Generate Recommendation**
        Generate laptop recommendations from the data returned from the recommend_laptops function call.
        Use simple language and provide reasons for selecting the laptop.
        Ensure that the recommendation is organized and clear.
-    7. **End**
+       Use plain text to format the recommendations. DO not use Markdown or any other formatting.
+       Start with a brief summary of each laptop in the following format, in decreasing order of price of laptops:
+        1. <Laptop Name> : <Major specifications of the laptop>, <Price in Rs>
+        2. <Laptop Name> : <Major specifications of the laptop>, <Price in Rs>
+        3. <Laptop Name> : <Major specifications of the laptop>, <Price in Rs>
+    7. **Ask for Feedback**
+       Ask the user if they have any questions or need further assistance.
+       If the user has additional requirements or wants to modify the requirements, the go back to step 1 and repeat the process.
+       If the user is satisfied with the recommendations, proceed to step 8.
+    8. **End**
        Conclude the conversation politely, thanking the user for their time and wishing them luck with their laptop search.
-
-    {delimiter}
-    Output Format
-    Provide a concise, well-structured recommendation paragraph (in Markdown) that:
-    - Highlights the suggested laptops
-    - Clearly explains the reasons for each recommendation
-    - Aligns the recommendations with the user's needs
 
     {delimiter}
     Sample Conversation
@@ -98,6 +107,7 @@ conversation:
 
     user: Yes, looks good.
     function_call: call function recommend_laptops with {"gpuIntensity": "high", "displayQuality": "high", "portability": "medium", "multitasking": "high", "processingSpeed": "high", "budget": 150000}
+    function_call_output: 
     
   assistant_greeting: |
     GREETINGS!! Hello! I'm here to help you find the perfect laptop. Please share your requirements, and I'll do my best to assist you.
@@ -116,46 +126,46 @@ conversation:
       parameters:
         type: object
         required:
-          - gpuIntensity
-          - displayQuality
-          - portability
-          - multitasking
-          - processingSpeed
+          - GPU intensity
+          - Display quality
+          - Portability
+          - Multitasking
+          - Processing speed
           - budget
         additionalProperties: false
         properties:
           budget:
             type: number
             description: Budget
-          portability:
+          Portability:
             type: string
             description: Portability
             enum:
               - high
               - low
               - medium
-          gpuIntensity:
+          GPU intensity:
             type: string
             description: GPU intensity
             enum:
               - high
               - low
               - medium
-          multitasking:
+          Multitasking:
             type: string
             description: Multitasking
             enum:
               - high
               - low
               - medium
-          displayQuality:
+          Display quality:
             type: string
             description: Display quality
             enum:
               - high
               - low
               - medium
-          processingSpeed:
+          Processing speed:
             type: string
             description: Processing speed
             enum:

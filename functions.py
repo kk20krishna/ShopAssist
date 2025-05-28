@@ -7,6 +7,7 @@ from IPython.display import display, HTML
 import yaml
 from functools import lru_cache
 from openai import OpenAI
+import json
 
 @lru_cache(maxsize=1)
 def load_configs():
@@ -69,10 +70,6 @@ def get_chat_completions(conversation_bot):
 
     return response.output_text
 
-def recommend_laptops(**args):
-    print('recommend_laptops:', args)
-    return "I recomend a Lenovo ThinkPad X1 Carbon for your needs."
-
 def moderation_check(user_input):
     # Call the OpenAI API to perform moderation on the user's input.
     response = openai.moderations.create(input=user_input)
@@ -88,6 +85,57 @@ def moderation_check(user_input):
         # If not flagged, return "Not Flagged"
         print('Moderation check: Not Flagged')
         return "Not Flagged"
+
+def recommend_laptops(**args):
+    #print('recommend_laptops called with args:', args)
+    laptop_df = pd.read_csv('updated_laptop.csv')
+
+    budget = args.get('budget')
+
+    filtered_laptops = laptop_df.copy()
+    filtered_laptops['Price'] = filtered_laptops['Price'].str.replace(',', '').astype(int)
+    filtered_laptops = filtered_laptops[filtered_laptops['Price'] <= budget].copy()
+
+    # # # Mapping string values 'low', 'medium', 'high' to numerical scores 0, 1, 2
+    mappings = {'low': 0, 'medium': 1, 'high': 2}
+
+    # # # Creating a new column 'Score' in the filtered DataFrame and initializing it to 0
+    filtered_laptops['Score'] = 0
+
+    #print('forS start now')
+    # # # Iterating over each laptop in the filtered DataFrame to calculate scores based on user requirements
+    for index, row in filtered_laptops.iterrows():
+        #print('Outer for:', index, row['laptop_feature'])
+        laptop_config_str = row['laptop_feature']
+        laptop_config_str = laptop_config_str.replace("'", '"')  # Replacing single quotes with double quotes for valid JSON
+        laptop_config = json.loads(laptop_config_str)
+        #print('laptop_config:', laptop_config)
+        score = 0
+
+    #   # Comparing user requirements with laptop features and updating scores
+        for user_req_key, user_req_value in args.items():
+            #print('Inner for:', user_req_key, user_req_value)
+            if user_req_key == 'budget':
+                continue  # Skipping budget comparison
+            
+            #print(mappings.get(laptop_config.get(user_req_key, None), -1), mappings.get(user_req_value, -1))
+
+            if mappings.get(laptop_config.get(user_req_key, None), -1) >= mappings.get(user_req_value, -1):
+                score += 1  # Incrementing score if laptop value meets or exceeds user value
+            
+            #print('score:', score)
+
+        filtered_laptops.loc[index, 'Score'] = score  # Updating the 'Score' column in the DataFrame
+
+
+    # Sorting laptops by score in descending order and selecting the top 3 products
+    top_laptops = filtered_laptops.drop('laptop_feature', axis=1)
+    top_laptops = top_laptops[top_laptops['Score'] > 2]  # Filtering out laptops with a score of 2 or more
+    top_laptops = top_laptops.sort_values('Score', ascending=False).head(3) # select top 3 laptops based on score
+    top_laptops_json = top_laptops.to_json(orient='records')  # Converting the top laptops DataFrame to JSON format
+
+    # return top 3 laptops
+    return top_laptops_json
 
 '''
 

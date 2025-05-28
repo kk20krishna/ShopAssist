@@ -30,11 +30,9 @@ for item in test_int_conversaion():
     conversation.append(item)
 #######################################################
 
-top_3_laptops = None
-
 @app.route("/")
 def default_func():
-    global conversation, conversation_bot, top_3_laptops
+    global conversation, conversation_bot
     return render_template("shopAssist.html", conversation = conversation)
 
 @app.route("/chat", methods = ['POST'])
