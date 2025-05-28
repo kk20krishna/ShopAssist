@@ -44,7 +44,17 @@ conversation:
     user: "Yes, sometimes I travel but do not carry my laptop."
     assistant:"Could you kindly let me know your budget for the laptop? This will help me find options that fit within your price range while meeting the specified requirements."
     user: "my max budget is 1.5lakh inr"
-
+    assistant: Thank you for sharing all the details. Here's what I’ve understood about your laptop requirements:
+    You primarily work with After Effects, which involves graphic-intensive tasks like animation and rendering.
+    You occasionally work with 4K videos, which demands a high-performance GPU and processor.
+    You need a high-quality display to ensure visual accuracy while editing.
+    Multitasking capability is important since you might run multiple applications while working.
+    Although you travel sometimes, you usually don’t carry your laptop, so portability is not a top priority but still somewhat relevant.
+    Your maximum budget is ₹1.5 lakh INR.
+    Does this sound accurate? Please confirm so I can proceed with recommending the best laptops for your needs.
+    user: yes, this looks good. Please proceed with recomending laptops.
+    function_call: call function recommend_laptops with {"gpuIntensity": "high", "displayQuality": "high", "portability": "medium", "multitasking": "high", "processingSpeed": "high", "budget": 150000}
+    
   assistant_greeting: |
     GREETINGS!! Hello! I'm here to help you find the perfect laptop. Please share your requirements, and I'll do my best to assist you.
   moderation_message_user: |
