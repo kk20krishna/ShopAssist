@@ -134,7 +134,7 @@
                     <div class="message {{ msg.role }}">{{ msg.content }}</div>
                 {% endfor %}
             </div>
-            <form class="chat-input" action="/chat" method="POST"">
+            <form class="chat-input" action="/chat" method="POST">
                 <input id="chatInput" name="user_input" type="text" placeholder="Type your message..." required />
                 <button type="submit">Send</button>
             </form>
@@ -149,6 +149,17 @@
             }
             // Scroll on page load
             window.addEventListener("load", scrollToBottom);
+        document.querySelector('.chat-input').addEventListener('submit', function () {
+            document.getElementById('loader').style.display = 'block';
+        });
         </script>
+        <div id="loader" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:1000;">
+            <svg width="50" height="50" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="35" stroke="#0078d4" stroke-width="10" fill="none" stroke-dasharray="164.93361431346415 56.97787143782138">
+                    <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s"
+                        values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                </circle>
+            </svg>
+        </div>
         </body>
 </html>
