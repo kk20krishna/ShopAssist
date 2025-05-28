@@ -290,5 +290,3 @@ def initialize_conv_reco(products):
                     {"role":"user","content":user_message}]
     # conversation_final = conversation[0]['content']
     return conversation
-
-'''

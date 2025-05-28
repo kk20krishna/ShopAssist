@@ -1,1 +1,6 @@
 Flask==2.3.2
+ipython==8.12.3
+openai==1.82.0
+pandas==2.2.3
+python-dotenv==1.1.0
+PyYAML==6.0.2
