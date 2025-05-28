@@ -4,7 +4,7 @@ import json
 import yaml
 from functools import lru_cache
 from openai import OpenAI
-import json
+
 
 @lru_cache(maxsize=1)
 def load_configs():
@@ -12,6 +12,7 @@ def load_configs():
     print("Loading configs.yaml file...")
     with open("configs.yaml", "r") as file:
         YAML_DICT = yaml.safe_load(file)
+
 
 def get_configs(name, type):
     global YAML_DICT
@@ -22,12 +23,14 @@ def get_configs(name, type):
     except KeyError:
         raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
+
 def test_int_conversaion():
     print("Loading init_conversation.yaml file...")
     with open("init_conversation.yaml", "r") as file:
         YAML_DICT = yaml.safe_load(file)
         print("init_conversation.yaml file loaded successfully.")
         return YAML_DICT['messages']
+
 
 def get_chat_completions(conversation_bot):
     print("OpenAI API call: ", conversation_bot[-1])
@@ -67,21 +70,6 @@ def get_chat_completions(conversation_bot):
 
     return response.output_text
 
-def moderation_check(user_input):
-    # Call the OpenAI API to perform moderation on the user's input.
-    response = openai.moderations.create(input=user_input)
-
-    # Extract the moderation result from the API response.
-    #moderation_output = response.results[0].flagged
-    # Check if the input was flagged by the moderation system.
-    if response.results[0].flagged == True:
-        # If flagged, return "Flagged"
-        print('Moderation check: Flagged')
-        return "Flagged"
-    else:
-        # If not flagged, return "Not Flagged"
-        print('Moderation check: Not Flagged')
-        return "Not Flagged"
 
 def recommend_laptops(**args):
     #print('recommend_laptops called with args:', args)
@@ -134,7 +122,23 @@ def recommend_laptops(**args):
     # return top 3 laptops
     return top_laptops_json
 
-'''
+
+def moderation_check(user_input):
+    # Call the OpenAI API to perform moderation on the user's input.
+    response = openai.moderations.create(input=user_input)
+
+    # Extract the moderation result from the API response.
+    #moderation_output = response.results[0].flagged
+    # Check if the input was flagged by the moderation system.
+    if response.results[0].flagged == True:
+        # If flagged, return "Flagged"
+        print('Moderation check: Flagged')
+        return "Flagged"
+    else:
+        # If not flagged, return "Not Flagged"
+        print('Moderation check: Not Flagged')
+        return "Not Flagged"
+
 
 def product_map_layer(laptop_description):
     delimiter = "#####"
