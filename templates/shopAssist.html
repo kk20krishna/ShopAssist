@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ShopAssist Chat</title>
+        <title>ShopAssist 2.0</title>
         <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="static/CSS/styles.css" />
     </head>
     <body>
         <div class="chat-container">
-            <div class="chat-header">ShopAssist</div>
+            <div class="chat-header">ShopAssist 2.0</div>
             <div id="chatBox" class="chat-box">
                 {% for msg in conversation %}
                     <div class="message {{ msg.role }}">{{ msg.content }}</div>
@@ -17,7 +17,9 @@
             </div>
             <form class="chat-input" action="/chat" method="POST">
                 <input id="chatInput" name="user_input" type="text" placeholder="Type your message..." required />
-                <button type="submit">Send</button>
+                    <button type="submit" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);">
+                        <img src="static/send-icon.png" alt="Send" style="height: 20px; width: 20px;" />        
+                    </button>
             </form>
             <form action="/end_chat" method="POST">
                 <button class="end-chat" type="submit">End Conversation</button>

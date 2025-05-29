@@ -2,7 +2,7 @@ body {
 margin: 0;
 font-family: 'Segoe UI', sans-serif;
 background-color: #ffffff;
-color: #f3f3f3;
+color: #d3d2d2;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -14,8 +14,8 @@ display: flex;
 flex-direction: column;
 background-color: #e5e5ee;
 border-radius: 12px;
-width: 1000px;
-height: 600px;
+width: 700px;
+height: 700px;
 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -24,7 +24,7 @@ text-align: center;
 padding: 16px;
 font-size: 1.2em;
 font-weight: 600;
-background-color: #9186f5;
+background-color: #0f72be;
 border-top-left-radius: 12px;
 border-top-right-radius: 12px;
 }
@@ -50,13 +50,13 @@ white-space: pre-wrap;
 
 .message.user {
 align-self: flex-end;
-background-color: #0f72be;
+background-color: #3a3d41;
 color: white;
 }
 
 .message.assistant {
 align-self: flex-start;
-background-color: #3a3d41;
+background-color: #0f72be;
 color: #f3f3f3;
 }
 
@@ -70,7 +70,7 @@ color: #f3f3f3;
 display: flex;
 padding: 12px;
 border-top: 1px solid #444;
-background-color: #2d2d2d;
+background-color: #0f72be;
 border-bottom-left-radius: 12px;
 border-bottom-right-radius: 12px;
 }
@@ -80,7 +80,7 @@ flex: 1;
 padding: 10px;
 border: none;
 border-radius: 6px;
-background-color: #1e1e1e;
+background-color: #0c5791;
 color: #fff;
 font-size: 0.95em;
 }
@@ -90,7 +90,7 @@ margin-left: 8px;
 padding: 10px 16px;
 border: none;
 border-radius: 6px;
-background-color: #0078d4;
+background-color: #0f72be;
 color: white;
 cursor: pointer;
 font-weight: 600;
@@ -103,7 +103,7 @@ background-color: #005ea2;
 
 .end-chat {
 margin: 10px 16px;
-background-color: #005ea2;
+background-color: #750101;
 color: white;
 border: none;
 border-radius: 6px;

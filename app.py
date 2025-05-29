@@ -19,9 +19,11 @@ conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
 conversation.append({'role': 'assistant', 'content': assistant_greeting})
 
 # Append Initial Conversation - To be used for testing only ####
-for item in get_configs('ShopAssist', 'Initial_conversation'):
-    conversation_bot.append(item)
-    conversation.append(item)
+initial_conversation = get_configs('ShopAssist', 'Initial_conversation')
+# If initial conversation is provided, append it to the conversation
+if initial_conversation is not None:
+    for item in initial_conversation:
+        conversation_bot.append(item)
 #######################################################
 
 @app.route("/")
