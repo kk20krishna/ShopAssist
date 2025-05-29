@@ -1,4 +1,3 @@
-# Import necessary libraries
 from flask import Flask, redirect, url_for, render_template, request
 from functions import *
 from dotenv import load_dotenv
