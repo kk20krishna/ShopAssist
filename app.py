@@ -11,15 +11,15 @@ conversation = []
 conversation_bot = []
 
 # Append system prompt to the conversation
-conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
+conversation_bot.append({'role' : 'system', 'content': get_configs('ShopAssist', 'system_prompt')})
 
 # Append assistant greeting to the conversation
-assistant_greeting = get_configs('conversation', 'assistant_greeting')
+assistant_greeting = get_configs('ShopAssist', 'assistant_greeting')
 conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
 conversation.append({'role': 'assistant', 'content': assistant_greeting})
 
 # Append Initial Conversation - To be used for testing only ####
-for item in get_configs('conversation', 'Initial_conversation'):
+for item in get_configs('ShopAssist', 'Initial_conversation'):
     conversation_bot.append(item)
     conversation.append(item)
 #######################################################
@@ -37,7 +37,7 @@ def chat():
     # Perform moderation check on user input
     moderation = moderation_check(user_input)
     if moderation == 'Flagged':
-        conversation.append({'role': 'moderation', 'content': get_configs('conversation', 'moderation_message_user')})
+        conversation.append({'role': 'moderation', 'content': get_configs('ShopAssist', 'moderation_message_user')})
         return redirect(url_for('default_func'))
 
     conversation_bot.append({'role': 'user', 'content': user_input})
@@ -49,7 +49,7 @@ def chat():
     # Perform moderation check on assistant output
     moderation = moderation_check(assistant_output)
     if moderation == 'Flagged':
-        conversation.append({'role': 'moderation', 'content': get_configs('conversation', 'moderation_message_assistant')})
+        conversation.append({'role': 'moderation', 'content': get_configs('ShopAssist', 'moderation_message_assistant')})
         return redirect(url_for('default_func'))
 
     conversation_bot.append({'role': 'assistant', 'content': assistant_output})
@@ -59,11 +59,12 @@ def chat():
 
 @app.route("/end_chat", methods = ['POST'])
 def end_conv():
+    print("Ending conversation...")
     global conversation_bot, conversation
     conversation = []
     conversation_bot = []
-    conversation_bot.append({'role' : 'system', 'content': get_configs('conversation', 'system_prompt')})
-    assistant_greeting = get_configs('conversation', 'assistant_greeting')
+    conversation_bot.append({'role' : 'system', 'content': get_configs('ShopAssist', 'system_prompt')})
+    assistant_greeting = get_configs('ShopAssist', 'assistant_greeting')
     conversation_bot.append({'role': 'assistant', 'content': assistant_greeting})
     conversation.append({'role': 'assistant', 'content': assistant_greeting})
     return redirect(url_for('default_func'))
