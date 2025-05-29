@@ -21,46 +21,6 @@ ShopAssist is an AI-powered web application that helps users find the most suita
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10+
-- [pip](https://pip.pypa.io/en/stable/)
-- OpenAI API Key
-
-### Installation
-
-1. **Clone the repository**
-    ```sh
-    git clone https://github.com/yourusername/ShopAssist.git
-    cd ShopAssist
-    ```
-
-2. **Install dependencies**
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-3. **Set up environment variables**
-
-    - Copy `.env_example` to `.env` and add your OpenAI API key:
-      ```
-      cp .env_example .env
-      ```
-      Edit [.env](http://_vscodecontentref_/0) and set:
-      ```
-      OPENAI_API_KEY=sk-...
-      ```
-
-4. **Run the application**
-    ```sh
-    python app.py
-    ```
-    The app will be available at `http://localhost:5000/` by default.
-
----
-
 ## Project Structure
 ├── app.py # Flask application entry point 
 ├── functions.py # Core logic: configs, OpenAI API, recommendation, moderation 
@@ -91,14 +51,8 @@ ShopAssist is an AI-powered web application that helps users find the most suita
 ## Customization
 
 - **Laptop Dataset**: Update  to add or modify laptop options.
-- **Assistant Behavior**: Edit  to change prompts, questions, or the system's workflow.
-- **UI Styling**: Modify  for custom look and feel.
-
----
-
-## Contributing
-
-Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
+- **Assistant Behavior**: Edit configs.yaml to change prompts, questions, or the system's workflow.
+- **UI Styling**: Modify styles.css for custom look and feel.
 
 ---
 
@@ -118,4 +72,4 @@ This project is licensed under the MIT License. See LICENSE for details.
 
 ## Contact
 
-For questions or support, please open an issue on GitHub or contact the maintainer.
+@kk20krishna
