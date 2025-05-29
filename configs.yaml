@@ -122,7 +122,7 @@ ShopAssist:
     Sorry, the message from the assistant has been flagged for moderation. 
     This message will not be shown to you.
     Please end this chat and start a new one.
-  Initial_conversation:
+  Initial_conversation: # used for testing
     #-  role: user
     #   content: |
     #     I am looking for a laptop that can handle medium GPU intensity tasks, 
