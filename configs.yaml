@@ -1,3 +1,11 @@
+# configs.yaml
+# 
+# This configuration file defines the settings and behavior for the ShopAssist assistant.
+# It specifies the model, system prompt, conversation flow, moderation messages, and the
+# function schema for recommending laptops based on user requirements. The file is used
+# to guide the assistant in interacting with users, gathering requirements, confirming
+# details, and generating laptop recommendations tailored to user needs in Indian Rupees (INR).
+#
 ShopAssist:
   model: gpt-3.5-turbo
   delimiter: '###'
@@ -116,8 +124,8 @@ ShopAssist:
   assistant_greeting: |
     Hi there! I'm ShopAssist, your laptop-finding buddy. Tell me what you need in a laptop—budget, usage, features—and I'll help you choose the perfect one!
   moderation_message_user: |
-    Sorry, this message has been flagged for moderation.
-    This message will be ignored.
+    Sorry, your previous message has been flagged for moderation.
+    The previous message will be ignored.
   moderation_message_assistant: |
     Sorry, the message from the assistant has been flagged for moderation. 
     This message will not be shown to you.
@@ -129,7 +137,7 @@ ShopAssist:
     #     has high display quality, supports multitasking, 
     #     and has high average speed.
     #     I do not are about portability.
-    #     My budget is $15000000.
+    #     My budget is $150000.
   tools:
     - type: function
       name: recommend_laptops
