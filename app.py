@@ -45,7 +45,7 @@ def chat():
     conversation.append({'role': 'user', 'content': user_input})
 
     # Get chat completions from the model
-    assistant_output = get_chat_completions(conversation_bot)
+    assistant_output = get_llm_responses(conversation_bot)
 
     # Perform moderation check on assistant output
     moderation = moderation_check(assistant_output)

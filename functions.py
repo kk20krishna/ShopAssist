@@ -48,7 +48,7 @@ def get_configs(name, type):
         raise KeyError(f"Configuration '{name}' with type '{type}' not found in configs.yaml.")
 
 
-def get_chat_completions(conversation_bot):
+def get_llm_responses(conversation_bot):
     """
     Calls the OpenAI API to generate chat completions based on the provided conversation history.
 
@@ -262,7 +262,7 @@ def product_map_layer(laptop_description):
     #see that we are using the Completion endpoint and not the Chatcompletion endpoint
     messages=[{"role": "system", "content":prompt },{"role": "user","content":input}]
 
-    response = get_chat_completions(messages, json_format = True)
+    response = get_llm_responses(messages, json_format = True)
 
     #   response = openai.chat.completions.create(
     #     model="gpt-3.5-turbo-0125",
