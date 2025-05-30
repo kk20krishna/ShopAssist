@@ -25,10 +25,12 @@ if initial_conversation is not None:
         conversation_bot.append(item)
 #######################################################
 
+
 @app.route("/")
 def default_func():
     global conversation, conversation_bot
     return render_template("shopAssist.html", conversation = conversation)
+
 
 @app.route("/chat", methods = ['POST'])
 def chat():
