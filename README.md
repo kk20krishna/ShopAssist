@@ -16,8 +16,8 @@ ShopAssist is an AI-powered web application that helps users find the most suita
 ---
 
 ## Demo
+![image](https://github.com/user-attachments/assets/912b4ab7-169f-4500-9166-45487a13ae81)
 
-![ShopAssist Chat UI Screenshot](static/send-icon.png) <!-- Replace with actual screenshot if available -->
 
 ---
 
