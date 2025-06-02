@@ -23,16 +23,25 @@ ShopAssist is an AI-powered web application that helps users find the most suita
 
 ## Project Structure
 ├── app.py # Flask application entry point 
+
 ├── functions.py # Core logic: configs, OpenAI API, recommendation, moderation 
+
 ├── configs.yaml # Assistant configuration and prompt templates 
+
 ├── updated_laptop.csv # Laptop dataset with features and descriptions 
+
 ├── requirements.txt # Python dependencies 
+
 ├── static
     ├── CSS
+    
         └── styles.css # Chat UI styles 
+        
         └── send-icon.png # (Optional) UI asset 
+        
 ├── templates
     └── shopAssist.html # Main chat interface template
+    
 └── .env_example # Example environment file
 
 
